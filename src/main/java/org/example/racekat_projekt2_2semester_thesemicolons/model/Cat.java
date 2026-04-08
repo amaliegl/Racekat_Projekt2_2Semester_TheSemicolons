@@ -21,7 +21,7 @@ public class Cat {
         this.sex = sex;
     }
 
-    //public Cat() {}
+    public Cat() {}
 
     public int getId() { return this.id;}
     public void setId(int id) { this.id = id;}
