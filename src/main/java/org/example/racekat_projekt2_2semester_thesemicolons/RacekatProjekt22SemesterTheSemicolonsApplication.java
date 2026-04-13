@@ -1,15 +1,7 @@
 package org.example.racekat_projekt2_2semester_thesemicolons;
 
-import org.example.racekat_projekt2_2semester_thesemicolons.model.*;
-import org.example.racekat_projekt2_2semester_thesemicolons.repository.CatRepository;
-import org.example.racekat_projekt2_2semester_thesemicolons.repository.UserRepositoryMySql;
-import org.example.racekat_projekt2_2semester_thesemicolons.service.CatService;
-import org.example.racekat_projekt2_2semester_thesemicolons.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class RacekatProjekt22SemesterTheSemicolonsApplication {

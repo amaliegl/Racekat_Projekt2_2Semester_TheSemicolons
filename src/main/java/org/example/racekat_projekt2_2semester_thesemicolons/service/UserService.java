@@ -3,6 +3,7 @@ package org.example.racekat_projekt2_2semester_thesemicolons.service;
 import org.example.racekat_projekt2_2semester_thesemicolons.model.User;
 import org.example.racekat_projekt2_2semester_thesemicolons.repository.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,13 @@ public class UserService {
     }//TODO
 
     public User createUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return false; // Brugernavnet findes allerede
+        }
+
+        String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashed);
+
         return userRepository.createUser(user);
     }//TODO
 
@@ -38,7 +46,11 @@ public class UserService {
     }//TODO
 
 
-    public User validateLogin(String email, String password) {
+    public User login(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+            return user;
+        }
         return null;
     }//TODO
 }

@@ -47,8 +47,6 @@ public class UserRepositoryMySql implements IUserRepository {
         }
 
         return users;
-
-        //return List.of();
     }//TODO
 
     public User assignUserTheirCats(User user) {
@@ -137,7 +135,17 @@ public class UserRepositoryMySql implements IUserRepository {
     }//TODO - lige nu ingen ændring af password || udvidelse/senere: ændring af password
 
     @Override
-    public User validateLogin(String email, String password) {
+    public User login(String email, String password) {
         return null;
     }//TODO - hashing spørgsmål
+
+    @Override
+    public User findByEmail(String email) {
+        String sql = """
+                SELECT * FROM users WHERE user.email = ?
+                """;
+
+
+        return null;
+    }
 }

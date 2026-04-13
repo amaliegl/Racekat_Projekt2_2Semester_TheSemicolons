@@ -15,5 +15,7 @@ public interface IUserRepository {
 
     public void editUser(User user);
 
-    public User validateLogin(String email, String password);
+    public User login(String email, String password);
+
+    public User findByEmail(String email);
 }

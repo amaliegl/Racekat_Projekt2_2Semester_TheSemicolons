@@ -13,11 +13,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 @Repository
-public class CatRepository implements ICatRepository {
+public class CatRepositoryMySql implements ICatRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CatRepository(JdbcTemplate jdbcTemplate){
+    public CatRepositoryMySql(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
