@@ -59,7 +59,6 @@ public class UserRepositoryMySql implements IUserRepository {
         List<Cat> cats = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Cat(
                         rs.getInt("cat_id"),
-                        rs.getInt("cat_owner_id"),
                         rs.getString("cat_name"),
                         rs.getDate("cat_birthday").toLocalDate(),
                         Color_ENUM.valueOf(rs.getString("cat_color")),
@@ -142,10 +141,26 @@ public class UserRepositoryMySql implements IUserRepository {
     @Override
     public User findByEmail(String email) {
         String sql = """
-                SELECT * FROM users WHERE user.email = ?
+                SELECT * FROM users WHERE user_email = ? LIMIT 1
                 """;
+        //TODO - LIMIT 1 is for testing
 
+        User user = jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                new User(
+                        rs.getInt("user_id"),
+                        rs.getString("user_name"),
+                        rs.getString("user_email"),
+                        rs.getString("user_password"),
+                        Role_ENUM.valueOf(rs.getString("user_role")),
+                        rs.getString("user_phone")
+                ), email
+        );
 
-        return null;
+        if (user == null) {
+            return null;
+        }
+
+        assignUserTheirCats(user);
+        return user;
     }
 }

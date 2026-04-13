@@ -12,10 +12,21 @@ public class User {
     private String phone;
     private List<Cat> cats = new ArrayList<>();
 
+    public User() {}
+
     public User(int id, String name, String email, Role_ENUM role, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.role = role;
+        this.phone = phone;
+    }
+
+    public User(int id, String name, String email, String password, Role_ENUM role, String phone) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.role = role;
         this.phone = phone;
     }

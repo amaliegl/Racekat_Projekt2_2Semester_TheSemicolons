@@ -1,0 +1,39 @@
+.topnav {
+    overflow: hidden;
+    background-color: #f1cbad;
+}
+
+.topnav a {
+    float: left;
+    color: #423d3d;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #FEA993;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: DarkSalmon;
+    color: white;
+}
+
+footer {
+    margin-top: 400px;
+    text-align: center;
+    padding: 3px;
+    background-color: DarkSalmon;
+    color: white;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}

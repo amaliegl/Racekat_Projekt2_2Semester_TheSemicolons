@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div th:insert="~{parts/navigation:: nav}"></div>
+<table>
+    <thead>
+        <tr>
+            <th>Billede</th>
+            <th>Information</th>
+            <th>andet</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cat : ${cats}">
+        <td><img th:src="@{/image/{file}(file=${cat.imagePath})}" alt="catPicture" width="120"></td>
+        <td>
+            <ul>
+                <li><span th:text="|Navn: ${cat.name}|">Navn</span></li>
+                <li><span th:text="|Fødselsdag: ${cat.birthday}|">Fødselsdag: </span></li>
+                <li><span th:text="|Farve: ${cat.color}|">Farve: </span></li>
+                <li><span th:text="|Køn: ${cat.sex}|">Køn: </span></li>
+                <li><span th:text="|Fertil: ${cat.fertile}|">Fertil: </span></li>
+                <li><span th:text="|I live: ${cat.alive}|">I live: </span></li>
+            </ul>
+        </td>
+        <td><img th:src="@{/image/{file}(file=${cat.pedigreePath})}" alt="pedigreePicture" width="120"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:insert="~{parts/footer:: footer}"></div>
+</body>
+</html>

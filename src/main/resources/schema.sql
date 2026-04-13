@@ -9,7 +9,6 @@ CREATE TABLE users (
 
 CREATE TABLE cats (
     cat_id INT AUTO_INCREMENT PRIMARY KEY,
-    cat_owner_id INT,
     cat_name VARCHAR(50) NOT NULL,
     cat_birthday DATE NOT NULL,
     cat_sex ENUM('Male', 'Female') NOT NULL,
@@ -17,8 +16,7 @@ CREATE TABLE cats (
     cat_fertile BOOL NOT NULL,
     cat_alive BOOL NOT NULL,
     cat_image_path VARCHAR(50),
-    cat_pedigree_path VARCHAR(50),
-    FOREIGN KEY (cat_owner_id) REFERENCES users(user_id)
+    cat_pedigree_path VARCHAR(50)
 );
 
 CREATE TABLE users_cats (

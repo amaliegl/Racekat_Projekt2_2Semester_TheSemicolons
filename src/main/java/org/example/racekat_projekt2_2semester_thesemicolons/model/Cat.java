@@ -5,7 +5,7 @@ import java.time.Period;
 
 public class Cat {
     private int id; //final
-    private int ownerId; //TODO - er den her unødvendig/overflødig?
+    //private int ownerId; //TODO - er den her unødvendig/overflødig? JA, FJERN!
     private String name;
     private LocalDate birthday; //final
     private Color_ENUM color;
@@ -16,9 +16,21 @@ public class Cat {
     private String pedigreePath;
 
 
-    public Cat(int id, int ownerId, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
+    /*public Cat(int id, int ownerId, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
         this.id = id;
         this.ownerId = ownerId;
+        this.name = name;
+        this.birthday = birthday;
+        this.color = color;
+        this.sex = sex;
+        this.fertile = fertile;
+        this.alive = alive;
+        this.imagePath = imagePath;
+        this.pedigreePath = pedigreePath;
+    }*/
+
+    public Cat(int id, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.color = color;

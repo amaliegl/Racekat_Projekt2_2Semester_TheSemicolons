@@ -24,7 +24,7 @@ public class CatRepositoryMySql implements ICatRepository {
     @Override
     public void addCat(Cat cat, User user) {
         String sql = """
-                INSERT INTO cats (cat_owner_id,
+                INSERT INTO cats (
                     cat_name,
                     cat_birthday,
                     cat_sex,
@@ -40,7 +40,6 @@ public class CatRepositoryMySql implements ICatRepository {
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, user.getId());
             ps.setString(2, cat.getName()); // Set first parameter (name)
             ps.setDate(3, Date.valueOf(cat.getBirthday()));
             ps.setString(4, cat.getSex().name());
@@ -76,8 +75,7 @@ public class CatRepositoryMySql implements ICatRepository {
     @Override
     public void editCat(Cat cat) {
         String sql = """
-                UPDATE cats SET
-                    cat_owner_id = ?,
+                UPDATE cats SET                
                     cat_name = ?,
                     cat_color = ?,
                     cat_fertile = ?,
@@ -88,7 +86,6 @@ public class CatRepositoryMySql implements ICatRepository {
                 """;
 
         jdbcTemplate.update(sql,
-                cat.getOwnerId(),
                 cat.getName(),
                 cat.getColor(),
                 cat.isFertile(),

@@ -23,12 +23,12 @@ public class UserService {
     }//TODO
 
     public User createUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        /*if (userRepository.findByEmail(user.getEmail()) != null) {
             return false; // Brugernavnet findes allerede
         }
 
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-        user.setPassword(hashed);
+        user.setPassword(hashed);*/
 
         return userRepository.createUser(user);
     }//TODO
@@ -47,10 +47,14 @@ public class UserService {
 
 
     public User login(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        /*User user = userRepository.findByEmail(email);
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             return user;
-        }
+        }*/
         return null;
     }//TODO
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

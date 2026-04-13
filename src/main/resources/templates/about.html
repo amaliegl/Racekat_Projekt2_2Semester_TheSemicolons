@@ -5,11 +5,17 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<div th:insert="~{parts/navigation:: nav}"></div>
-<br>
-<p>TEST HJEM</p>
 
+<body>
+<!-- Navigation bar -->
+<div th:insert="~{parts/navigation:: nav}"></div>
+<div>
+    <br>
+<p>About side</p>
+</div>
+<!-- Footer -->
 <div th:insert="~{parts/footer:: footer}"></div>
+<!-- <script src="script.js"></script> -->
 </body>
+
 </html>
