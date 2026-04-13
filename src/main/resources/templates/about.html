@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,9 +9,38 @@
 <body>
 <!-- Navigation bar -->
 <div th:insert="~{parts/navigation:: nav}"></div>
-<div>
-    <br>
-<p>About side</p>
+
+<div class="container">
+    <h1>Ragdoll Danmark Klubben!</h1>
+    <div class="showImg">
+    <img th:src="@{/image/show.jpg}" alt="showImg">
+    </div>
+    <div class="text">
+    <p>Dansk Ragdoll Klub er et engageret og inkluderende fællesskab for alle, der deler en særlig passion for den smukke, rolige og kærlige ragdoll-kat. Klubben henvender sig til både nye og erfarne katteejere, opdrættere samt entusiaster, som ønsker at fordybe sig i racen og være en del af et stærkt netværk med fælles interesse i ragdollens trivsel og udvikling.
+
+        Ragdoll-katten er kendt for sit venlige temperament, sin tillidsfulde natur og sit karakteristiske udseende med silkeblød pels og klare blå øjne. Netop disse egenskaber gør racen til noget helt særligt, og det er denne fascination, der danner grundlaget for klubbens arbejde. I Dansk Ragdoll Klub mødes mennesker, der ikke blot ejer en kat, men som ønsker at forstå og værdsætte racens unikke personlighed og behov i dybden.
+
+        Klubben fungerer som et samlingspunkt, hvor medlemmer kan udveksle erfaringer, stille spørgsmål og dele deres glæde ved livet med ragdolls. Uanset om man har sin første killing, flere voksne katte eller arbejder med opdræt, er der plads til alle. Gennem dialog og vidensdeling skaber vi et miljø, hvor man kan lære af hinanden og udvikle sig som katteejer eller opdrætter.
+
+        Som medlem får man adgang til et bredt netværk af ligesindede over hele Danmark. Dette netværk giver mulighed for at få rådgivning om en lang række emner, herunder ernæring, sundhed, pelspleje, adfærd og trivsel. Derudover tilbyder klubben vejledning inden for avl og genetik, så opdrættere kan arbejde målrettet og ansvarligt med racens udvikling. Vi lægger stor vægt på åbenhed og samarbejde, så alle medlemmer føler sig trygge ved at søge hjælp og dele deres erfaringer.
+
+        Dansk Ragdoll Klub arrangerer løbende aktiviteter, der styrker fællesskabet og øger kendskabet til racen. Dette inkluderer medlemsmøder, temadage, foredrag med eksperter, sociale arrangementer samt deltagelse i katteudstillinger. Her får medlemmer mulighed for at mødes ansigt til ansigt, dele oplevelser og knytte nye relationer.
+    </p>
+        <br>
+        <h2 style="margin-bottom: 10px">Arrangementer</h2>
+        <img class="cuteImg" th:src="@{image/cute.jpg}" alt="cuteImg" >
+        <span>
+            Arrangementerne er både lærerige og hyggelige og bidrager til at skabe et stærkt og levende klubmiljø.
+
+        Klubben arbejder aktivt for at fremme ragdoll-racen i Danmark og sikre, at racens standard, sundhed og temperament bevares og videreudvikles. Dette sker gennem oplysning, samarbejde med relevante organisationer og fokus på ansvarligt opdræt. Vi ønsker at bidrage til, at alle ragdoll-katte får et godt og trygt liv, og at kommende ejere får den rette viden og vejledning, inden de anskaffer sig en kat.
+
+        Et vigtigt fokusområde for klubben er også dyrevelfærd. Vi opfordrer til ansvarligt ejerskab, hvor kattens behov altid kommer i første række. Det indebærer blandt andet korrekt pasning, regelmæssige sundhedstjek og forståelse for kattens sociale og mentale behov. Klubben fungerer som en støtte for medlemmer, der ønsker at sikre de bedste rammer for deres katte gennem hele livet.
+
+        Uanset om du har én ragdoll som kæledyr, flere katte i hjemmet eller driver et seriøst opdræt, er du hjerteligt velkommen i Dansk Ragdoll Klub. Vi tror på, at fællesskab og vidensdeling skaber de bedste forudsætninger for både mennesker og katte. Hos os finder du et varmt, åbent og engageret miljø, hvor passionen for ragdoll-katten er omdrejningspunktet, og hvor både nye og erfarne medlemmer hurtigt vil føle sig som en del af fællesskabet.
+        </span>
+    </div>
+
+
 </div>
 <!-- Footer -->
 <div th:insert="~{parts/footer:: footer}"></div>

@@ -37,3 +37,23 @@ ul {
     padding: 0;
     overflow: hidden;
 }
+.container{
+    margin: 20px auto;
+    width: 75%;
+    text-align: justify;
+}
+.showImg img{
+    float: left;
+    margin-right: 20px;
+}
+
+.cuteImg{
+    float: right;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+img{
+    max-width: 350px;
+    border-radius: 10px;
+
+}

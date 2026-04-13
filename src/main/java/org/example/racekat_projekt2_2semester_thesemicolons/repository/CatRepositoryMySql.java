@@ -65,12 +65,13 @@ public class CatRepositoryMySql implements ICatRepository {
 
     @Override
     public void deleteCat(Cat cat) {
-        String sql = "DELETE FROM cats WHERE cat_id = ?";
+        /*String sql = "DELETE FROM cats WHERE cat_id = ?";
 
         jdbcTemplate.update(sql,
                 cat.getOwnerId()
-        );
+        );*/
     }//TODO - Hvad for en exception skal vi fange her?
+    //TODO opdater uden ownerID
 
     @Override
     public void editCat(Cat cat) {
