@@ -17,7 +17,8 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return List.of();
+        return userRepository.findAllUsers();
+        //return List.of();
     }//TODO
 
     public User createUser(User user) {
@@ -33,7 +34,7 @@ public class UserService {
     }//TODO
 
     public void checkRole(User user) {
-
+        //til at tjekke, om bruger må få adgang til ting (brug bare direkte fra brugerobjektet)
     }//TODO
 
 

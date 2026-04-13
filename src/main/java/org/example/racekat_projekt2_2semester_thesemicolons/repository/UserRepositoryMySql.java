@@ -42,7 +42,13 @@ public class UserRepositoryMySql implements IUserRepository {
                 ));
 
         //TODO - spørgsmål: skal katte kobles på her, eller skal det rundt om service først?
-        return List.of();
+        for (int i = 0; i < users.size(); i++) {
+            assignUserTheirCats(users.get(i));
+        }
+
+        return users;
+
+        //return List.of();
     }//TODO
 
     public User assignUserTheirCats(User user) {
@@ -75,7 +81,7 @@ public class UserRepositoryMySql implements IUserRepository {
     public User createUser(User user) throws NullPointerException{
 
         String sql = """
-                INSERT INTO cats (
+                INSERT INTO users (
                     user_name,
                     user_email,
                     user_password,
@@ -97,6 +103,7 @@ public class UserRepositoryMySql implements IUserRepository {
         }, keyHolder);
 
         user.setId(keyHolder.getKey().intValue());
+
         return user;
     }//TODO - hashing spørgsmål
 

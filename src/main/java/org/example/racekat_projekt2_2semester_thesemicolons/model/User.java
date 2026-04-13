@@ -1,5 +1,6 @@
 package org.example.racekat_projekt2_2semester_thesemicolons.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -9,7 +10,24 @@ public class User {
     private String password;
     private Role_ENUM role;
     private String phone;
-    private List<Cat> cats;
+    private List<Cat> cats = new ArrayList<>();
+
+    public User(int id, String name, String email, Role_ENUM role, String phone) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.phone = phone;
+    }
+
+    //For testing
+    public User(String name, String email, String password, Role_ENUM role, String phone) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+    }
 
     public User(int id, String name, String email, String password, Role_ENUM role, String phone, List<Cat> cats) {
         this.id = id;
@@ -44,6 +62,11 @@ public class User {
 
     public void addCatToCats(Cat cat) {
         this.cats.add(cat);
+    }
+
+    @Override
+    public String toString() {
+        return getId() + " " + name + " " + cats;
     }
 }
 

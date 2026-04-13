@@ -5,9 +5,10 @@ import java.time.Period;
 
 public class Cat {
     private int id; //final
-    private int ownerId;
+    private int ownerId; //TODO - er den her unødvendig/overflødig?
     private String name;
     private LocalDate birthday; //final
+    private Color_ENUM color;
     private Sex_ENUM sex; //final
     private boolean fertile;
     private boolean alive;
@@ -15,10 +16,34 @@ public class Cat {
     private String pedigreePath;
 
 
+    public Cat(int id, int ownerId, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.name = name;
+        this.birthday = birthday;
+        this.color = color;
+        this.sex = sex;
+        this.fertile = fertile;
+        this.alive = alive;
+        this.imagePath = imagePath;
+        this.pedigreePath = pedigreePath;
+    }
+
     public Cat(int id, LocalDate birthday, Sex_ENUM sex) {
         this.id = id;
         this.birthday = birthday;
         this.sex = sex;
+    }
+
+    public Cat(String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, Boolean fertile, Boolean alive, String imagePath, String pedigreePath) {
+        this.name = name;
+        this.birthday = birthday;
+        this.color = color;
+        this.sex = sex;
+        this.fertile = fertile;
+        this.alive = alive;
+        this.imagePath = imagePath;
+        this.pedigreePath = pedigreePath;
     }
 
     public Cat() {}
@@ -34,6 +59,9 @@ public class Cat {
 
     public LocalDate getBirthday() { return birthday; }
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
+
+    public Color_ENUM getColor() { return this.color; }
+    public void setColor(Color_ENUM color) {this.color = color; }
 
     public Sex_ENUM getSex() { return this.sex; }
     public void setSex(Sex_ENUM sex) {this.sex = sex; }
@@ -57,5 +85,10 @@ public class Cat {
             return age.getMonths() + " months";
         }
         return age.getYears() + " years";
+    }
+
+    @Override
+    public String toString() {
+        return getId() + " " + name;
     }
 }

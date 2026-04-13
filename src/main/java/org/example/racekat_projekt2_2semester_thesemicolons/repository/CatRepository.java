@@ -55,6 +55,7 @@ public class CatRepository implements ICatRepository {
         cat.setId(keyHolder.getKey().intValue());
 
         connectCatToUser(cat, user);
+        user.addCatToCats(cat);
     }//TODO
 
     private void connectCatToUser(Cat cat, User user) {
