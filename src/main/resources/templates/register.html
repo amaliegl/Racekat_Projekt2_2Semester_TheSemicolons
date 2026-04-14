@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret bruger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="backgroundimage">
+<div class="container">
+    <h2>Opret bruger</h2>
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <label class="inputLabel">Email:</label>
+        <input type="email" th:field="*{email}" required>
+        <br>
+        <label class="inputLabel">Password:</label>
+        <input type="password" th:field="*{password}" required>
+        <br>
+        <label class="inputLabel" for="name">Navn:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <br>
+        <label class="inputLabel">Telefon:</label>
+        <input type="text" th:field="*{phone}">
+        <br>
+
+
+        <div class="termsandconditionsbox">
+            <label>
+                <input class="termsandconditions" type="checkbox" name="terms" style="margin-bottom:15px">  Jeg accepterer <a href="#" class="link" onclick="termsAndConditionsClick()">privatlivspolitikken</a>
+            </label>
+        </div>
+
+        <div class="error" th:text="${error}"></div>
+        <button type="submit">Registrér</button>
+    </form>
+    <div>
+        <p>Allerede bruger? <a href="/login" class="link">Log ind</a></p>
+    </div>
+</div>
+<script src="script.js"></script>
+<div th:insert="~{parts/footer:: footer}"></div>
+</body>
+</html>
