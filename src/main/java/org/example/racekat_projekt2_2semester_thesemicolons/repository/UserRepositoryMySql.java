@@ -78,7 +78,6 @@ public class UserRepositoryMySql implements IUserRepository {
 
     @Override
     public User createUser(User user) throws NullPointerException{
-
         String sql = """
                 INSERT INTO users (
                     user_name,
@@ -121,7 +120,6 @@ public class UserRepositoryMySql implements IUserRepository {
                 UPDATE users
                 SET user_name = ?,
                     user_email = ?,
-                    user_role = ?,
                     user_phone = ?
                 WHERE ?
                 """;
@@ -129,7 +127,6 @@ public class UserRepositoryMySql implements IUserRepository {
         jdbcTemplate.update(sql,
                 user.getName(),
                 user.getEmail(),
-                user.getRole(),
                 user.getPhone(),
                 user.getId()
                 );

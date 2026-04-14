@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,7 +7,24 @@
 </head>
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
+<span th:text="|Navn: ${user.name}|">Navn</span>
+<br>
+<span th:text="|Email: ${user.email}|">Email</span>
+<br>
+<span th:text="|Telefon: ${user.phone}|">Telefon</span>
+<br>
+<span th:text="|Antal katte: ${#lists.size(user.cats)}|">Telefon</span>
+<br>
+<!--
+<span th:text="|Antal katte: ${#lists.size(cats)}|">Katte</span>
+<span th:text="${#lists.size(myList)}"/>
+-->
+<!--
+private String password;
+private Role_ENUM role;
+-->
 
+<a href="/profile/edit">Redigér profil</a>
 
 <div th:insert="~{parts/footer:: footer}"></div>
 </body>

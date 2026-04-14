@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,7 @@
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
 <br>
-<span th:text="|Velkommen, ${loggedInUser.name}|">
+<span th:text="|Velkommen, ${loggedInUser.name}|"></span>
 
 <div th:insert="~{parts/footer:: footer}"></div>
 </body>

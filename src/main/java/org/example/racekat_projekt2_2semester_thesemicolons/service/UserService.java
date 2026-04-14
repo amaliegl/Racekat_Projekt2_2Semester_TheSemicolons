@@ -40,8 +40,10 @@ public class UserService {
         userRepository.deleteUser(user);
     }//TODO
 
-    public void editUser(User user) {
+    public User editUser(User user) {
         userRepository.editUser(user);
+        Optional<User> editedUser = userRepository.findByEmail(user.getEmail());
+        return editedUser.orElse(null); //a part of Optional
     }//TODO
 
     public void checkRole(User user) {

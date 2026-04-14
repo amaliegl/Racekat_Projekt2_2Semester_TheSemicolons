@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rediger profil</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:insert="~{parts/navigation:: nav}"></div>
+<form th:action="@{/profile/edit}" th:object="${user}" method="post">
+    <label class="inputLabel" for="name">Navn:</label>
+    <input type="text" id="name" th:field="${user.name}" required>
+    <br>
+    <label class="inputLabel">Email:</label>
+    <input type="email" th:field="${user.email}" required>
+    <br>
+    <label class="inputLabel">Telefon:</label>
+    <input type="text" th:field="${user.phone}">
+    <br>
+    <button type="submit">Gem ændringer</button>
+    <br>
+    <a href="/profile">Annullér</a>
+</form>
+<div th:insert="~{parts/footer:: footer}"></div>
+</body>
+</html>

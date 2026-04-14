@@ -33,21 +33,21 @@ public class CatRepositoryMySql implements ICatRepository {
                     cat_alive,
                     cat_image_path,
                     cat_pedigree_path) VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(2, cat.getName()); // Set first parameter (name)
-            ps.setDate(3, Date.valueOf(cat.getBirthday()));
-            ps.setString(4, cat.getSex().name());
-            ps.setString(5, cat.getColor().name());
-            ps.setBoolean(6, cat.isFertile());
-            ps.setBoolean(7, cat.isAlive());
-            ps.setString(8, cat.getImagePath());
-            ps.setString(9, cat.getPedigreePath());// Set second parameter (email)
+            ps.setString(1, cat.getName()); // Set first parameter (name)
+            ps.setDate(2, Date.valueOf(cat.getBirthday()));
+            ps.setString(3, cat.getSex().name());
+            ps.setString(4, cat.getColor().name());
+            ps.setBoolean(5, cat.isFertile());
+            ps.setBoolean(6, cat.isAlive());
+            ps.setString(7, cat.getImagePath());
+            ps.setString(8, cat.getPedigreePath());// Set second parameter (email)
             return ps;
         }, keyHolder);
 

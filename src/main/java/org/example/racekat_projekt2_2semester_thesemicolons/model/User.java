@@ -77,7 +77,8 @@ public class User {
 
     @Override
     public String toString() {
-        return getId() + " " + name + " " + cats;
+        String forTesting = email + " " + phone;
+        return id + " " + name + " " + cats + forTesting;
     }
 }
 

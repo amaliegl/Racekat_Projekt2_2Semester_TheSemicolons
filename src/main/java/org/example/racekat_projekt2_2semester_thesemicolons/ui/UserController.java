@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.awt.print.Book;
 import java.time.LocalDate;
@@ -26,21 +27,10 @@ public class UserController {
     private CatService catService;
 
     @GetMapping("/")
-    public String getDefaultPage() {
-        System.out.println("Er inde i GetMapping");
-        /*User user = new User("Jytte", "jytte@kat.dk", "1234", Role_ENUM.Member, "87654321");
-        Cat cat = new Cat("Mille", LocalDate.now(), Color_ENUM.Lilac, Sex_ENUM.Female, false, true, "placeholder.jpg", "placeholder.jpg");
-        System.out.println("Har oprettet bruger og kat");
-
-        User savedUser = userService.createUser(user);
-        System.out.println("Bruger gemt i database: " + savedUser);
-        catService.createCat(cat, user);
-*/
-
-        System.out.println("Alle brugere fra databasen: " + userService.getAllUsers());
-        //System.out.println("Jyttes liste af katte: " + user.getCats());
-
-        return "test";
+    public String getDefaultPage(Model model, HttpSession session, SessionStatus sessionStatus) {
+        User user = (User) session.getAttribute("currentUser");
+        model.addAttribute("loggedInUser", user);
+        return "home";
     }
 
     @GetMapping("/login")
@@ -51,9 +41,10 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
-        //User loggedIn = userService.login(user.getEmail(), user.getPassword()); TODO - udkommenteret for test
-        //TODO -nedenstående er til test
-        /*User loggedIn = userService.findByEmail("jytte@kat.dk");
+        User loggedIn = userService.login(user.getEmail(), user.getPassword());
+
+        //TODO - Nedenstående er til test
+        //User loggedIn = userService.findByEmail("jytte@kat.dk");
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
@@ -61,8 +52,7 @@ public class UserController {
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
             return "login";
-        }*/
-        return "login";
+        }
     }
 
     @GetMapping("/register")
@@ -114,10 +104,39 @@ public class UserController {
         return "myCats";
     }
 
-    @GetMapping("/profile")
-    public String getProfilePage() {
+    @GetMapping("/myCats/addCat")
+    public String showAddCatForm(Model model) {
+        model.addAttribute("newCat", new Cat());
+        return "addCat";
+    }
 
+    @PostMapping("/myCats/addCat")
+    public String submitAddCatForm(@ModelAttribute Cat cat, HttpSession session) {
+        catService.createCat(cat, (User) session.getAttribute("currentUser"));
+        return "redirect:/myCats";
+    }
+
+    @GetMapping("/profile")
+    public String getProfilePage(Model model, HttpSession session) {
+        model.addAttribute("user", session.getAttribute("currentUser"));
         return "profile";
+    }
+
+    @GetMapping("/profile/edit")
+    public String showEditProfileForm(Model model, HttpSession session) {
+        model.addAttribute("user", session.getAttribute("currentUser"));
+        return "editProfile";
+    }
+
+    @PostMapping("/profile/edit")
+    public String submitEditProfileForm(@ModelAttribute User user, HttpSession session) {
+        System.out.println("Bruger fra sessionen: " + session.getAttribute("currentUser"));
+        System.out.println("Bruger fra formen: " + user);
+        User editedUser = userService.editUser(user);
+        System.out.println("Bruger fra editUser()" + editedUser);
+        session.setAttribute("currentUser", editedUser);
+        return "redirect:/profile";
+        //TODO - hvordan kommer vi rundt om at opdatere bruger, når ikke alle informationer må opdateres?
     }
 
     @PostMapping()
