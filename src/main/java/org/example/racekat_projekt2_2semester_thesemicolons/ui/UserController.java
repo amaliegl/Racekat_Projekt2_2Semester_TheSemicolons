@@ -53,7 +53,7 @@ public class UserController {
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
         //User loggedIn = userService.login(user.getEmail(), user.getPassword()); TODO - udkommenteret for test
         //TODO -nedenstående er til test
-        User loggedIn = userService.findByEmail("jytte@kat.dk");
+        /*User loggedIn = userService.findByEmail("jytte@kat.dk");
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
@@ -61,12 +61,34 @@ public class UserController {
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
             return "login";
+        }*/
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user, HttpSession session, Model model) {
+        User createdUser = userService.createUser(user);
+        if (createdUser != null) {
+            session.setAttribute("currentUser", createdUser);
+            //TODO - ovenstående var ikke med i Mikkels, har selv tilføjet, så man er logget ind, når man opretter sig
+            return "redirect:/home"; //var originalt "redirect:/login"
+        } else {
+            model.addAttribute("error", "Email er allerede i brug."); //TODO - spørg til "brugernavn/adgangskode forker" ift. dette
+            return "login";
         }
     }
 
-    @GetMapping("/home")
-    public String getHomePage() {
 
+    @GetMapping("/home")
+    public String getHomePage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        model.addAttribute("loggedInUser", user);
         return "home";
     }
 

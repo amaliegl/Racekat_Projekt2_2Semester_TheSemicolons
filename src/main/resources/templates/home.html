@@ -8,7 +8,7 @@
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
 <br>
-<p>TEST HJEM</p>
+<span th:text="|Velkommen, ${loggedInUser.name}|">
 
 <div th:insert="~{parts/footer:: footer}"></div>
 </body>

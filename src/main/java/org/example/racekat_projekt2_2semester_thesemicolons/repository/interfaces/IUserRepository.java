@@ -4,6 +4,8 @@ import org.example.racekat_projekt2_2semester_thesemicolons.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface IUserRepository {
 
@@ -17,5 +19,5 @@ public interface IUserRepository {
 
     public User login(String email, String password);
 
-    public User findByEmail(String email);
+    public Optional<User> findByEmail(String email);
 }

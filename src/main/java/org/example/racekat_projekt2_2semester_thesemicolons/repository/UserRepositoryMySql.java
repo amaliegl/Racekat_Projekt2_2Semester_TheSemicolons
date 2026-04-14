@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class UserRepositoryMySql implements IUserRepository {
 
@@ -94,7 +96,7 @@ public class UserRepositoryMySql implements IUserRepository {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
-            ps.setString(4, user.getRole().name());
+            ps.setString(4, Role_ENUM.Member.name());
             ps.setString(5, user.getPhone());
             return ps;
         }, keyHolder);
@@ -139,13 +141,13 @@ public class UserRepositoryMySql implements IUserRepository {
     }//TODO - hashing spørgsmål
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         String sql = """
                 SELECT * FROM users WHERE user_email = ? LIMIT 1
                 """;
         //TODO - LIMIT 1 is for testing
 
-        User user = jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+        List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new User(
                         rs.getInt("user_id"),
                         rs.getString("user_name"),
@@ -156,11 +158,11 @@ public class UserRepositoryMySql implements IUserRepository {
                 ), email
         );
 
-        if (user == null) {
-            return null;
+        if (results.isEmpty()) {
+            return Optional.empty();
         }
 
-        assignUserTheirCats(user);
-        return user;
+        assignUserTheirCats(results.get(0));
+        return Optional.of(results.get(0));
     }
 }

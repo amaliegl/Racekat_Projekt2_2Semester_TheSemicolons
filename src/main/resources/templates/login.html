@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="backgroundimage">
 <div class="container">
     <h2>Login</h2>
     <form th:action="@{/login}" th:object="${user}" method="post">
@@ -18,8 +18,9 @@
         <button type="submit">Log ind</button>
     </form>
     <div class="link">
-        <a href="/register">Opret en bruger</a>
+        <p>Ikke medlem? <a href="/register">Opret en bruger</a></p>
     </div>
 </div>
+<div th:insert="~{parts/footer:: footer}"></div>
 </body>
 </html>
