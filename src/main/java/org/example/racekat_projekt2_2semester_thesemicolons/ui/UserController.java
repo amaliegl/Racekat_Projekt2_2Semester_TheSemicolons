@@ -24,8 +24,11 @@ public class UserController {
     private CatService catService;
 
     @GetMapping("/")
-    public String getDefaultPage(Model model, HttpSession session, SessionStatus sessionStatus) {
+    public String getDefaultPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("loggedInUser", user);
         return "home";
     }
@@ -39,9 +42,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
         User loggedIn = userService.login(user.getEmail(), user.getPassword());
-
-        //TODO - Nedenstående er til test
-        //User loggedIn = userService.findByEmail("jytte@kat.dk");
 
         if (loggedIn != null) {
             session.setAttribute("currentUser", loggedIn);
@@ -63,86 +63,60 @@ public class UserController {
         User createdUser = userService.createUser(user);
         if (createdUser != null) {
             session.setAttribute("currentUser", createdUser);
-            //TODO - ovenstående var ikke med i Mikkels, har selv tilføjet, så man er logget ind, når man opretter sig
             return "redirect:/home"; //var originalt "redirect:/login"
         } else {
-            model.addAttribute("error", "Email er allerede i brug."); //TODO - spørg til "brugernavn/adgangskode forker" ift. dette
+            model.addAttribute("error", "Email er allerede i brug.");
             return "login";
         }
     }
 
-
     @GetMapping("/home")
     public String getHomePage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        model.addAttribute("loggedInUser", user);
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("loggedInUser", session.getAttribute("currentUser"));
         return "home";
     }
 
     @GetMapping("/findMember")
-    public String getFindMemberPage() {
+    public String getFindMemberPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("members", userService.getAllUsers());
 
         return "findMember";
     }
 
     @GetMapping("/about")
-    public String getAboutPage() {
-
-        return "about";
-    }
-
-    @GetMapping("/myCats")
-    public String getMyCatsPage(HttpSession session, Model model) {
+    public String getAboutPage(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         if (user == null) {
             return "redirect:/login";
         }
-        model.addAttribute("cats", user.getCats());
-        return "myCats";
-    }
-
-    @GetMapping("/myCats/addCat")
-    public String showAddCatForm(Model model) {
-        model.addAttribute("newCat", new Cat());
-        return "addCat";
-    }
-
-    @PostMapping("/myCats/addCat")
-    public String submitAddCatForm(@ModelAttribute Cat cat, HttpSession session) {
-        catService.createCat(cat, (User) session.getAttribute("currentUser"));
-        return "redirect:/myCats";
-    }
-
-    @GetMapping("/myCats/editCat/{id}")
-    public String showEditCatForm(@PathVariable int id, Model model ){
-        Cat cat = catService.findCatById(id);
-        model.addAttribute("cat", cat);
-        return "editCat";
-    }
-
-    @PostMapping("/myCats/editCat")
-    public String submitEditCatForm(@ModelAttribute Cat cat, HttpSession session){
-        catService.editCat(cat);
-        refreshCurrentSessionUser(session); //To fetch the user's cats from the database again so the update will show on the website
-        return "redirect:/myCats";
-    }
-
-    @PostMapping("/myCats/editCat/delete/{id}")
-    public String submitDeleteCatForm(@PathVariable int id, HttpSession session){
-        catService.deleteCat(id);
-        refreshCurrentSessionUser(session); //To fetch the user's cats from the database again so the update will show on the website
-        return "redirect:/myCats";
+        return "about";
     }
 
     @GetMapping("/profile")
     public String getProfilePage(Model model, HttpSession session) {
-        model.addAttribute("user", session.getAttribute("currentUser"));
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", user);
         return "profile";
     }
 
     @GetMapping("/profile/edit")
     public String showEditProfileForm(Model model, HttpSession session) {
-        model.addAttribute("user", session.getAttribute("currentUser"));
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", user);
         return "editProfile";
     }
 

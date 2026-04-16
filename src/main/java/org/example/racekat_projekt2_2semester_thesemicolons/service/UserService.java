@@ -15,17 +15,16 @@ public class UserService {
 
     private final IUserRepository userRepository;
 
-    //TODO - spørg Mikkel om den røde streg
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAllUsers();
-        //return List.of();
-    }//TODO
+    }
 
-    public User createUser(User user) {
+    public User createUser(User user) throws IllegalArgumentException {
+        user.validateUserValues();
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return null; // Email is already in use
         }
@@ -38,22 +37,23 @@ public class UserService {
 
     public void deleteUser(int id) {
         userRepository.deleteUser(id);
-    }//TODO
+    }
 
-    public User editUser(User newUser, User oldUser) {
+    public User editUser(User newUser, User oldUser) throws IllegalArgumentException {
         User updatedUser = updateIdOnEditedUser(newUser, oldUser);
+        updatedUser.validateUserValues();
         userRepository.editUserFromUserEditForm(updatedUser);
         return userRepository.findByExistingId(updatedUser.getId()); //a part of Optional
     }
 
-    public User updateIdOnEditedUser(User newUser, User oldUser){
+    private User updateIdOnEditedUser(User newUser, User oldUser){
         newUser.setId(oldUser.getId());
         return newUser;
     }
 
     public void checkRole(User user) {
         //til at tjekke, om bruger må få adgang til ting (brug bare direkte fra brugerobjektet)
-    }//TODO
+    }
 
 
     public User login(String email, String password) {

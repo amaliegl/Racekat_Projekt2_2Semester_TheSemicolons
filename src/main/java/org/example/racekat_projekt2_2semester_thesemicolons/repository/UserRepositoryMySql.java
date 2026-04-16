@@ -33,7 +33,7 @@ public class UserRepositoryMySql implements IUserRepository {
                 user_phone
                 FROM users
                 """;
-        //Intentionally selecting specifik columns to avoid fetching passwords
+        //Intentionally selecting specific columns to avoid fetching passwords
 
         List<User> users = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new User(
@@ -44,15 +44,15 @@ public class UserRepositoryMySql implements IUserRepository {
                         rs.getString("user_phone")
                 ));
 
-        //TODO - spørgsmål: skal katte kobles på her, eller skal det rundt om service først?
+        //Assigning cats
         for (int i = 0; i < users.size(); i++) {
             assignUserTheirCats(users.get(i));
         }
 
         return users;
-    }//TODO
+    }
 
-    public User assignUserTheirCats(User user) {
+    private User assignUserTheirCats(User user) {
         String sql = """
                 SELECT * FROM cats
                 JOIN users_cats ON cats.cat_id = users_cats.cat_id
@@ -104,7 +104,7 @@ public class UserRepositoryMySql implements IUserRepository {
         user.setId(keyHolder.getKey().intValue());
 
         return user;
-    }//TODO - hashing spørgsmål
+    }
 
     @Override
     public void deleteUser(int id) {
@@ -113,7 +113,7 @@ public class UserRepositoryMySql implements IUserRepository {
                 """;
         jdbcTemplate.update(sql,
                 id);
-    }//TODO
+    }
 
     @Override
     public void editUserFromUserEditForm(User user) {
@@ -132,11 +132,6 @@ public class UserRepositoryMySql implements IUserRepository {
                 user.getId()
                 );
     }
-
-    @Override
-    public User login(String email, String password) {
-        return null;
-    }//TODO - hashing spørgsmål
 
     @Override
     public User findByExistingId(int id) throws EmptyResultDataAccessException {
@@ -161,9 +156,8 @@ public class UserRepositoryMySql implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         String sql = """
-                SELECT * FROM users WHERE user_email = ? LIMIT 1
+                SELECT * FROM users WHERE user_email = ?
                 """;
-        //TODO - LIMIT 1 is for testing
 
         List<User> results = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new User(

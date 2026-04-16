@@ -2,6 +2,8 @@ package org.example.racekat_projekt2_2semester_thesemicolons.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class User {
     private int id;
@@ -73,6 +75,28 @@ public class User {
 
     public void addCatToCats(Cat cat) {
         this.cats.add(cat);
+    }
+
+    public void validateUserValues() {
+        //checks if the email looks like an email
+        String emailRegexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        Pattern emailPattern = Pattern.compile(emailRegexPattern); //creates patteren
+        Matcher emailMatcher = emailPattern.matcher(email); //returns a Matcher object
+        boolean emailMatchFound = emailMatcher.find();
+
+        String phoneWithLettersRegexPattern = "^(?=.*[A-Za-z])$";
+        Pattern phoneWithLettersPattern = Pattern.compile(phoneWithLettersRegexPattern);
+        Matcher phoneWithLettersMatcher = phoneWithLettersPattern.matcher(phone);
+        boolean phoneWithLettersFound = phoneWithLettersMatcher.find();
+
+        String nameWithNumbersRegexPattern = "^(?=.*[0-9])$";
+        Pattern nameWithNumbersPattern = Pattern.compile(nameWithNumbersRegexPattern);
+        Matcher nameWithNumbersMatcher = nameWithNumbersPattern.matcher(name);
+        boolean nameWithNumbersFound = nameWithNumbersMatcher.find();
+
+        if (!emailMatchFound || phoneWithLettersFound || nameWithNumbersFound || id < 0) {
+            throw new IllegalArgumentException("Input opfylder ikke krav for bruger");
+        }
     }
 
     @Override

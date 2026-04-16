@@ -50,4 +50,16 @@ function confirmDeleteUser(){
         "\n\nHandlingen kan ikke fortrydes");
 }
 
+function validateTermsAndConditionsCheckbox(event) {
+    if (document.querySelector('input[name="terms"]:checked')) {
+        document.getElementById('errorMsg').textContent = "";
+        return true;
+    }
+
+    event.preventDefault(); //stop form from submitting
+    document.getElementById('errorMsg').textContent = "Du skal acceptere privatlivspolitikken, før du kan registrere dig"
+    return false;
+
+}
+
 

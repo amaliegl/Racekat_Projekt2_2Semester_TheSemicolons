@@ -103,7 +103,7 @@ public class CatRepositoryMySql implements ICatRepository {
                 cat.getPedigreePath(),
                 cat.getId()
         );
-    }//TODO
+    }
 
     @Override
     public Cat getCatById(int id) throws EmptyResultDataAccessException {
@@ -123,6 +123,4 @@ public class CatRepositoryMySql implements ICatRepository {
                 ), id
         );
     }
-
-
 }

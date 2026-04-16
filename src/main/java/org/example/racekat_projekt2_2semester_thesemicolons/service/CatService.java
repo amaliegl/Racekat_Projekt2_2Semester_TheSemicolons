@@ -13,29 +13,28 @@ public class CatService {
         this.catRepository = catRepository;
     }
 
-    public void createCat(Cat cat, User user){
-        System.out.println("Katten, da den kommer ind i create: " + cat);
+    public void createCat(Cat cat, User user) throws IllegalArgumentException {
+        cat.validateCatValues();
         assignPlaceholderImageIfNotPresent(cat);
-        System.out.println("Katten, da den kommer UD " + cat);
         catRepository.addCat(cat, user);
-    }//TODO - slet sout
+    }
 
     public void deleteCat(int id){
         catRepository.deleteCat(id);
-    }//TODO
+    }
 
-    public void editCat(Cat cat){
+    public void editCat(Cat cat) throws IllegalArgumentException {
+        cat.validateCatValues();
         catRepository.editCat(cat);
-    }//TODO
+    }
 
     public Cat findCatById(int id) {
         return catRepository.getCatById(id);
     }
 
-    private Cat assignPlaceholderImageIfNotPresent(Cat cat) {
+    private void assignPlaceholderImageIfNotPresent(Cat cat) {
         if (cat.getImagePath().isEmpty() || cat.getImagePath() == null) {
             cat.setImagePath("kat.jpg");
         }
-        return cat;
     }
 }

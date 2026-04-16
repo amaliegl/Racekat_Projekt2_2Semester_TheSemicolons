@@ -3,7 +3,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Cats</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,6 +22,7 @@
         <td>
             <ul>
                 <li><span th:text="|Navn: ${cat.name}|">Navn</span></li>
+                <li><span th:text="|Alder: ${cat.age}|">Alder</span></li>
                 <li><span th:text="|Fødselsdag: ${cat.birthday}|">Fødselsdag: </span></li>
                 <li><span th:text="|Farve: ${cat.color}|">Farve: </span></li>
                 <li><span th:text="|Køn: ${cat.sex}|">Køn: </span></li>

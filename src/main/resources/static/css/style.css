@@ -90,7 +90,7 @@ body.backgroundimage {
 
 .inputLabel{
     display: inline-block;
-    width: 4em;
+    width: 4.9em;
 }
 
 .delete {
@@ -99,4 +99,10 @@ body.backgroundimage {
     border-radius: 8px;
     border: 2px solid darkred;
     display:inline;
+}
+
+td {
+    border-collapse: collapse;
+    border: 1px none;
+    border-top: solid #F7A69B;
 }

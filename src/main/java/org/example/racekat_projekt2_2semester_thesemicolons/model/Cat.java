@@ -5,7 +5,6 @@ import java.time.Period;
 
 public class Cat {
     private int id; //final
-    //private int ownerId; //TODO - er den her unødvendig/overflødig? JA, FJERN!
     private String name;
     private LocalDate birthday; //final
     private Color_ENUM color;
@@ -15,19 +14,7 @@ public class Cat {
     private String imagePath;
     private String pedigreePath;
 
-
-    /*public Cat(int id, int ownerId, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
-        this.id = id;
-        this.ownerId = ownerId;
-        this.name = name;
-        this.birthday = birthday;
-        this.color = color;
-        this.sex = sex;
-        this.fertile = fertile;
-        this.alive = alive;
-        this.imagePath = imagePath;
-        this.pedigreePath = pedigreePath;
-    }*/
+    public Cat() {}
 
     public Cat(int id, String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, boolean fertile, boolean alive, String imagePath, String pedigreePath) {
         this.id = id;
@@ -41,30 +28,8 @@ public class Cat {
         this.pedigreePath = pedigreePath;
     }
 
-    public Cat(int id, LocalDate birthday, Sex_ENUM sex) {
-        this.id = id;
-        this.birthday = birthday;
-        this.sex = sex;
-    }
-
-    public Cat(String name, LocalDate birthday, Color_ENUM color, Sex_ENUM sex, Boolean fertile, Boolean alive, String imagePath, String pedigreePath) {
-        this.name = name;
-        this.birthday = birthday;
-        this.color = color;
-        this.sex = sex;
-        this.fertile = fertile;
-        this.alive = alive;
-        this.imagePath = imagePath;
-        this.pedigreePath = pedigreePath;
-    }
-
-    public Cat() {}
-
     public int getId() { return this.id;}
     public void setId(int id) { this.id = id;}
-
-    //public int getOwnerId() { return ownerId;} TODO SLET hvis det ikke skal bruges
-    //public void setOwnerId(int ownerId) { this.ownerId = ownerId; }
 
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
@@ -94,9 +59,16 @@ public class Cat {
         Period age = Period.between(birthday, LocalDate.now());
 
         if (age.getYears() < 1) {
-            return age.getMonths() + " months";
+            return age.getMonths() + " måneder";
+        } else {
+            return age.getYears() + " år";
         }
-        return age.getYears() + " years";
+    }
+
+    public void validateCatValues() {
+        if (id < 0 || birthday.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Input opfylder ikke krav for kat");
+        }
     }
 
     @Override

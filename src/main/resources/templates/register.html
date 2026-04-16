@@ -8,19 +8,20 @@
 <body class="backgroundimage">
 <div class="container">
     <h2>Opret bruger</h2>
-    <form th:action="@{/register}" th:object="${user}" method="post">
-        <label class="inputLabel">Email:</label>
-        <input type="email" th:field="*{email}" required>
+    <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return validateTermsAndConditionsCheckbox(event)">
+        <label class="inputLabel" for="email">Email*:</label>
+        <input type="email" id="email" th:field="*{email}" required>
         <br>
-        <label class="inputLabel">Password:</label>
-        <input type="password" th:field="*{password}" required>
+        <label class="inputLabel" for="password">Password*:</label>
+        <input type="password" id="password" th:field="*{password}" required>
         <br>
-        <label class="inputLabel" for="name">Navn:</label>
+        <label class="inputLabel" for="name">Navn*:</label>
         <input type="text" id="name" th:field="*{name}" required>
         <br>
-        <label class="inputLabel">Telefon:</label>
-        <input type="text" th:field="*{phone}">
+        <label class="inputLabel" for="phone">Telefon:</label>
+        <input type="text" id="phone" th:field="*{phone}">
         <br>
+        <p>* Obligatorisk felt</p>
 
 
         <div class="termsandconditionsbox">
@@ -30,6 +31,7 @@
         </div>
 
         <div class="error" th:text="${error}"></div>
+        <p id="errorMsg" class="error"></p>
         <button type="submit">Registrér</button>
     </form>
     <div>

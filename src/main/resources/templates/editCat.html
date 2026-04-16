@@ -15,11 +15,11 @@
     <input type="hidden" th:field="*{sex}">
 
     <div>
-        <label for="name">Navn</label>
+        <label for="name" class="inputLabel">Navn</label>
         <input type="text" id="name" th:field="*{name}" required>
     </div>
 
-    <label>Fertil:</label>
+    <label class="inputLabel">Fertil:</label>
     <select th:field="*{fertile}">
         <option value="true">Ja</option>
         <option value="false">Nej</option>
@@ -31,7 +31,7 @@
     </div>
 
     <div>
-        <label for="imageName"></label>
+        <label for="imageName" class="inputLabel">Billede: </label>
         <input type="text" id="imageName" th:field="*{imagePath}" placeholder="fx kat.jpg">
     </div>
 <br>
@@ -39,7 +39,7 @@
 </form>
 <br>
     <a href="/myCats">Annullér</a>
-
+<br>
 <form th:action="@{/myCats/editCat/delete/{id}(id=${cat.id})}" method="post">
     <button type="submit" class ="delete" onclick="return confirmDeleteCat()">Slet</button>
 </form>

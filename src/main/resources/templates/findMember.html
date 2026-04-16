@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Members</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
-
+<table class="container">
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Katte</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td><span th:text="${member.name}">Navn</span></td>
+        <td><span th:text="|Antal katte: ${#lists.size(member.cats)}|">Antal Katte</span></td>
+    </tr>
+    </tbody>
+</table>
 
 <div th:insert="~{parts/footer:: footer}"></div>
 </body>
