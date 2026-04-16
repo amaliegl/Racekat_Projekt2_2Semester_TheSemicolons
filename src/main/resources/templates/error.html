@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+</head>
+<body>
+
+<div class="errorImg">
+    <img th:src="@{/image/confused.jpg}" alt="errorImg">
+</div>
+
+<div class="container">
+    <h1>Der skete en fejl</h1>
+    <div class="errorContainer">
+    <span th:if="${#strings.contains(errorMessage, 'No static resource')}">Siden, du forsøger at tilgå, findes ikke</span>
+        <span th:if="${#strings.contains(errorMessage, 'Input opfylder ikke krav for kat')}">Ugyldigt/ugyldige input for kat</span>
+        <br>
+        <span th:if="${#strings.contains(errorMessage, 'Input opfylder ikke krav for bruger')}">Ugyldigt/ugyldige input for medlem</span>
+        <br>
+    </div>
+        <a href="/home">Til forsiden</a>
+</div>
+
+
+<!--
+<div class="container">
+    <h1>An error has occurred</h1>
+    <p>Requested Path: <span th:text="${path}"></span></p>
+    <p>Status Code: <span th:text="${status}"></span> - <span th:text="${error}"></span></p>
+    <p th:text="${message}"></p>
+    <a href="/home">Back to Home</a>
+</div>
+-->
+
+</body>
+</html>
