@@ -27,24 +27,29 @@ public class UserService {
 
     public User createUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            return null; // Brugernavnet findes allerede
+            return null; // Email is already in use
         }
 
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashed);
 
         return userRepository.createUser(user);
+    }
+
+    public void deleteUser(int id) {
+        userRepository.deleteUser(id);
     }//TODO
 
-    public void deleteUser(User user) {
-        userRepository.deleteUser(user);
-    }//TODO
+    public User editUser(User newUser, User oldUser) {
+        User updatedUser = updateIdOnEditedUser(newUser, oldUser);
+        userRepository.editUserFromUserEditForm(updatedUser);
+        return userRepository.findByExistingId(updatedUser.getId()); //a part of Optional
+    }
 
-    public User editUser(User user) {
-        userRepository.editUser(user);
-        Optional<User> editedUser = userRepository.findByEmail(user.getEmail());
-        return editedUser.orElse(null); //a part of Optional
-    }//TODO
+    public User updateIdOnEditedUser(User newUser, User oldUser){
+        newUser.setId(oldUser.getId());
+        return newUser;
+    }
 
     public void checkRole(User user) {
         //til at tjekke, om bruger må få adgang til ting (brug bare direkte fra brugerobjektet)
@@ -61,9 +66,13 @@ public class UserService {
             return loggedInUser;
         }
         return null;
-    }//TODO
+    }
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User findByExistingId(int id) {
+        return userRepository.findByExistingId(id);
     }
 }

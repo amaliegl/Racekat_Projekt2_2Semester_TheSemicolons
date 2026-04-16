@@ -1,10 +1,11 @@
 CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(50) NOT NULL,
-    user_email VARCHAR(100) NOT NULL,
-    user_password VARCHAR(100) NOT NULL,
-    user_role ENUM('Admin', 'SuperUser', 'Member'),
-    user_phone VARCHAR(20)
+                       user_id INT AUTO_INCREMENT PRIMARY KEY,
+                       user_name VARCHAR(50) NOT NULL,
+                       user_email VARCHAR(100) NOT NULL,
+                       user_password VARCHAR(100) NOT NULL,
+                       user_role ENUM('Admin', 'SuperUser', 'Member'),
+                       user_phone VARCHAR(20),
+                       unique (user_email)
 );
 
 CREATE TABLE cats (

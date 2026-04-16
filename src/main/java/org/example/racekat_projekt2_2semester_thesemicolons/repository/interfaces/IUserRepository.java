@@ -13,11 +13,13 @@ public interface IUserRepository {
 
     public User createUser(User user);
 
-    public void deleteUser(User user);
+    public void deleteUser(int id);
 
-    public void editUser(User user);
+    public void editUserFromUserEditForm(User user);
 
     public User login(String email, String password);
+
+    public User findByExistingId(int id);
 
     public Optional<User> findByEmail(String email);
 }

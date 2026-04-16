@@ -101,6 +101,7 @@ public class Cat {
 
     @Override
     public String toString() {
-        return getId() + " " + name;
+        String forTesting = " " + imagePath;
+        return getId() + " " + name + forTesting;
     }
 }

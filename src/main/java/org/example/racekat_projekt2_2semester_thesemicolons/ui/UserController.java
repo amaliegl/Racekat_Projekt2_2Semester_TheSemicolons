@@ -8,10 +8,7 @@ import org.example.racekat_projekt2_2semester_thesemicolons.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.awt.print.Book;
@@ -116,6 +113,27 @@ public class UserController {
         return "redirect:/myCats";
     }
 
+    @GetMapping("/myCats/editCat/{id}")
+    public String showEditCatForm(@PathVariable int id, Model model ){
+        Cat cat = catService.findCatById(id);
+        model.addAttribute("cat", cat);
+        return "editCat";
+    }
+
+    @PostMapping("/myCats/editCat")
+    public String submitEditCatForm(@ModelAttribute Cat cat, HttpSession session){
+        catService.editCat(cat);
+        refreshCurrentSessionUser(session); //To fetch the user's cats from the database again so the update will show on the website
+        return "redirect:/myCats";
+    }
+
+    @PostMapping("/myCats/editCat/delete/{id}")
+    public String submitDeleteCatForm(@PathVariable int id, HttpSession session){
+        catService.deleteCat(id);
+        refreshCurrentSessionUser(session); //To fetch the user's cats from the database again so the update will show on the website
+        return "redirect:/myCats";
+    }
+
     @GetMapping("/profile")
     public String getProfilePage(Model model, HttpSession session) {
         model.addAttribute("user", session.getAttribute("currentUser"));
@@ -130,18 +148,27 @@ public class UserController {
 
     @PostMapping("/profile/edit")
     public String submitEditProfileForm(@ModelAttribute User user, HttpSession session) {
-        System.out.println("Bruger fra sessionen: " + session.getAttribute("currentUser"));
-        System.out.println("Bruger fra formen: " + user);
-        User editedUser = userService.editUser(user);
-        System.out.println("Bruger fra editUser()" + editedUser);
+        User editedUser = userService.editUser(user, (User) session.getAttribute("currentUser"));
         session.setAttribute("currentUser", editedUser);
         return "redirect:/profile";
         //TODO - hvordan kommer vi rundt om at opdatere bruger, når ikke alle informationer må opdateres?
     }
 
-    @PostMapping()
-    public String logoutUser() {
+    @PostMapping("/profile/edit/delete/{id}")
+    public String submitDeleteUserForm(@PathVariable int id, HttpSession session){
+        userService.deleteUser(id);
+        session.invalidate();
+        return "redirect:/login";
+    }
 
-        return "login";
+    @GetMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+    private void refreshCurrentSessionUser(HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        session.setAttribute("currentUser", userService.findByExistingId(user.getId()));
     }
 }

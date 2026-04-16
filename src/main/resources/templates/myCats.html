@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
-<table>
+<table class="container">
     <thead>
         <tr>
             <th>Billede</th>
@@ -25,11 +25,16 @@
                 <li><span th:text="|Fødselsdag: ${cat.birthday}|">Fødselsdag: </span></li>
                 <li><span th:text="|Farve: ${cat.color}|">Farve: </span></li>
                 <li><span th:text="|Køn: ${cat.sex}|">Køn: </span></li>
-                <li><span th:text="|Fertil: ${cat.fertile}|">Fertil: </span></li>
-                <li><span th:text="|I live: ${cat.alive}|">I live: </span></li>
+                <li><span th:if="${cat.fertile}">Fertil: Ja</span></li>
+                <li><span th:unless="${cat.fertile}">Fertil: Nej</span></li>
+                <li><span th:if="${cat.alive}">I live: Nej </span></li>
+                <li><span th:unless="${cat.alive}">I live: Ja </span></li>
             </ul>
         </td>
-        <td><img th:src="@{/image/{file}(file=${cat.pedigreePath})}" alt="pedigreePicture" width="120"></td>
+
+        <td>
+            <a th:href="@{/myCats/editCat/{id}(id=${cat.id})}">Rediger</a>
+        </td>
     </tr>
     </tbody>
 </table>

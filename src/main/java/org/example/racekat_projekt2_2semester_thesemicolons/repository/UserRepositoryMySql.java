@@ -2,6 +2,7 @@ package org.example.racekat_projekt2_2semester_thesemicolons.repository;
 
 import org.example.racekat_projekt2_2semester_thesemicolons.model.*;
 import org.example.racekat_projekt2_2semester_thesemicolons.repository.interfaces.IUserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -106,22 +107,22 @@ public class UserRepositoryMySql implements IUserRepository {
     }//TODO - hashing spørgsmål
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(int id) {
         String sql = """
                 DELETE FROM users WHERE user_id =?
                 """;
         jdbcTemplate.update(sql,
-                user.getId());
+                id);
     }//TODO
 
     @Override
-    public void editUser(User user) {
+    public void editUserFromUserEditForm(User user) {
         String sql = """
                 UPDATE users
                 SET user_name = ?,
                     user_email = ?,
                     user_phone = ?
-                WHERE ?
+                WHERE user_id = ?
                 """;
 
         jdbcTemplate.update(sql,
@@ -130,12 +131,32 @@ public class UserRepositoryMySql implements IUserRepository {
                 user.getPhone(),
                 user.getId()
                 );
-    }//TODO - lige nu ingen ændring af password || udvidelse/senere: ændring af password
+    }
 
     @Override
     public User login(String email, String password) {
         return null;
     }//TODO - hashing spørgsmål
+
+    @Override
+    public User findByExistingId(int id) throws EmptyResultDataAccessException {
+        String sql = """
+                SELECT * FROM users WHERE user_id = ?
+                """;
+
+            User user = jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                    new User(
+                            rs.getInt("user_id"),
+                            rs.getString("user_name"),
+                            rs.getString("user_email"),
+                            rs.getString("user_password"),
+                            Role_ENUM.valueOf(rs.getString("user_role")),
+                            rs.getString("user_phone")
+                    ), id
+            );
+            assignUserTheirCats(user);
+            return user;
+    }
 
     @Override
     public Optional<User> findByEmail(String email) {

@@ -5,6 +5,7 @@ import org.example.racekat_projekt2_2semester_thesemicolons.model.User;
 
 public interface ICatRepository {
     public void addCat(Cat cat, User user);
-    public void deleteCat(Cat cat);
+    public void deleteCat(int id);
     public void editCat(Cat cat);
+    public Cat getCatById(int id);
 }

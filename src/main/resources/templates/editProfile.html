@@ -7,6 +7,7 @@
 </head>
 <body>
 <div th:insert="~{parts/navigation:: nav}"></div>
+<div class="container">
 <form th:action="@{/profile/edit}" th:object="${user}" method="post">
     <label class="inputLabel" for="name">Navn:</label>
     <input type="text" id="name" th:field="${user.name}" required>
@@ -21,6 +22,13 @@
     <br>
     <a href="/profile">Annullér</a>
 </form>
+
+    <form th:action="@{/profile/edit/delete/{id}(id=${user.id})}" method="post">
+        <button type="submit" class ="delete" onclick="return confirmDeleteUser()">Slet</button>
+    </form>
+
+</div>
 <div th:insert="~{parts/footer:: footer}"></div>
+<script th:src="@{/script.js}"></script>
 </body>
 </html>

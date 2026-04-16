@@ -14,14 +14,28 @@ public class CatService {
     }
 
     public void createCat(Cat cat, User user){
+        System.out.println("Katten, da den kommer ind i create: " + cat);
+        assignPlaceholderImageIfNotPresent(cat);
+        System.out.println("Katten, da den kommer UD " + cat);
         catRepository.addCat(cat, user);
-    }//TODO
+    }//TODO - slet sout
 
-    public void deleteCat(Cat cat){
-        catRepository.deleteCat(cat);
+    public void deleteCat(int id){
+        catRepository.deleteCat(id);
     }//TODO
 
     public void editCat(Cat cat){
         catRepository.editCat(cat);
     }//TODO
+
+    public Cat findCatById(int id) {
+        return catRepository.getCatById(id);
+    }
+
+    private Cat assignPlaceholderImageIfNotPresent(Cat cat) {
+        if (cat.getImagePath().isEmpty() || cat.getImagePath() == null) {
+            cat.setImagePath("kat.jpg");
+        }
+        return cat;
+    }
 }

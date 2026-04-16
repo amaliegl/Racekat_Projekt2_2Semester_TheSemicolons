@@ -38,3 +38,16 @@ function termsAndConditionsClick() {
         "\n" +
         "Ved at bruge vores tjenester accepterer du denne privatlivspolitik.\n");
 }
+
+function confirmDeleteCat(){
+    return confirm("Er du sikker på, at du vil slette denne kat?\n(dette kan ikke fortrydes)");
+}
+
+function confirmDeleteUser(){
+    return confirm("Er du sikker på, at du vil slette din bruger?" +
+        "\n\nBemærk:" +
+        "\n- Information om dine katte slettes ikke" +
+        "\n\nHandlingen kan ikke fortrydes");
+}
+
+

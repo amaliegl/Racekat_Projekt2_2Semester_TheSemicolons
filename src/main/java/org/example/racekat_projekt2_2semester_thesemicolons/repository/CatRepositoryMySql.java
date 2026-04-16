@@ -1,8 +1,8 @@
 package org.example.racekat_projekt2_2semester_thesemicolons.repository;
 
-import org.example.racekat_projekt2_2semester_thesemicolons.model.Cat;
-import org.example.racekat_projekt2_2semester_thesemicolons.model.User;
+import org.example.racekat_projekt2_2semester_thesemicolons.model.*;
 import org.example.racekat_projekt2_2semester_thesemicolons.repository.interfaces.ICatRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -64,14 +64,22 @@ public class CatRepositoryMySql implements ICatRepository {
     }
 
     @Override
-    public void deleteCat(Cat cat) {
-        /*String sql = "DELETE FROM cats WHERE cat_id = ?";
+    public void deleteCat(int id) {
+        removeCatAndOwnerRelation(id);
+        String sql = "DELETE FROM cats WHERE cat_id = ?";
 
         jdbcTemplate.update(sql,
-                cat.getOwnerId()
-        );*/
-    }//TODO - Hvad for en exception skal vi fange her?
-    //TODO opdater uden ownerID
+                id
+        );
+    }
+
+    private void removeCatAndOwnerRelation(int id) {
+        String sql = "DELETE FROM users_cats WHERE cat_id = ?";
+
+        jdbcTemplate.update(sql,
+                id
+        );
+    }
 
     @Override
     public void editCat(Cat cat) {
@@ -88,7 +96,7 @@ public class CatRepositoryMySql implements ICatRepository {
 
         jdbcTemplate.update(sql,
                 cat.getName(),
-                cat.getColor(),
+                cat.getColor().name(),
                 cat.isFertile(),
                 cat.isAlive(),
                 cat.getImagePath(),
@@ -96,4 +104,25 @@ public class CatRepositoryMySql implements ICatRepository {
                 cat.getId()
         );
     }//TODO
+
+    @Override
+    public Cat getCatById(int id) throws EmptyResultDataAccessException {
+        String sql = "SELECT * FROM cats WHERE cat_id = ?";
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                new Cat(
+                        rs.getInt("cat_id"),
+                        rs.getString("cat_name"),
+                        rs.getDate("cat_birthday").toLocalDate(),
+                        Color_ENUM.valueOf(rs.getString("cat_color")),
+                        Sex_ENUM.valueOf(rs.getString("cat_sex")),
+                        rs.getBoolean("cat_fertile"),
+                        rs.getBoolean("cat_alive"),
+                        rs.getString("cat_image_path"),
+                        rs.getString("cat_pedigree_path")
+                ), id
+        );
+    }
+
+
 }
