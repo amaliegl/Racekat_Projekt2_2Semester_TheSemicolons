@@ -108,11 +108,20 @@ public class UserRepositoryMySql implements IUserRepository {
 
     @Override
     public void deleteUser(int id) {
+        removeCatAndOwnerRelation(id);
         String sql = """
                 DELETE FROM users WHERE user_id =?
                 """;
         jdbcTemplate.update(sql,
                 id);
+    }
+
+    private void removeCatAndOwnerRelation(int userId) {
+        String sql = "DELETE FROM users_cats WHERE user_id = ?";
+
+        jdbcTemplate.update(sql,
+                userId
+        );
     }
 
     @Override

@@ -73,11 +73,11 @@ public class CatRepositoryMySql implements ICatRepository {
         );
     }
 
-    private void removeCatAndOwnerRelation(int id) {
+    private void removeCatAndOwnerRelation(int catId) {
         String sql = "DELETE FROM users_cats WHERE cat_id = ?";
 
         jdbcTemplate.update(sql,
-                id
+                catId
         );
     }
 
