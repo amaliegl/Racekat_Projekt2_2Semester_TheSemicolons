@@ -8,10 +8,8 @@ import org.example.racekat_projekt2_2semester_thesemicolons.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class CatController {
@@ -39,12 +37,15 @@ public class CatController {
             return "redirect:/login";
         }
         model.addAttribute("newCat", new Cat());
-        return "addCat";
+        return "addCat2";
     }
 
     @PostMapping("/myCats/addCat")
-    public String submitAddCatForm(@ModelAttribute Cat cat, HttpSession session) {
-        catService.createCat(cat, (User) session.getAttribute("currentUser"));
+    public String submitAddCatForm(@ModelAttribute Cat cat, @RequestParam(required = false, name = "image") MultipartFile image, HttpSession session) throws InterruptedException {
+        //catService.createCat(cat, (User) session.getAttribute("currentUser"));
+        System.out.println("Før createCat()");
+        catService.createCatNew(cat, image, (User) session.getAttribute("currentUser"));
+        refreshCurrentSessionUser(session);
         return "redirect:/myCats";
     }
 
@@ -56,12 +57,14 @@ public class CatController {
         }
         Cat cat = catService.findCatById(id);
         model.addAttribute("cat", cat);
-        return "editCat";
+        return "editCat2";
     }
 
     @PostMapping("/myCats/editCat")
-    public String submitEditCatForm(@ModelAttribute Cat cat, HttpSession session){
-        catService.editCat(cat);
+    public String submitEditCatForm(@ModelAttribute Cat cat, @RequestParam(required = false, name = "image") MultipartFile image, HttpSession session){
+        //catService.editCat(cat);
+        //System.out.println("Image i postmapping: " + image.getOriginalFilename());
+        catService.editCatNew(cat, image);
         refreshCurrentSessionUser(session); //To fetch the user's cats from the database again so the update will show on the website
         return "redirect:/myCats";
     }

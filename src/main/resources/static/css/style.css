@@ -81,7 +81,7 @@ img{
 }
 
 body.backgroundimage {
-    background-image: url(../image/cute2.jpg);
+    background-image: url(../../../../../uploads/cute2.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

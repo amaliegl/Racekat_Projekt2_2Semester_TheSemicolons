@@ -80,7 +80,7 @@ public class User {
     public void validateUserValues() {
         //checks if the email looks like an email
         String emailRegexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        Pattern emailPattern = Pattern.compile(emailRegexPattern); //creates patteren
+        Pattern emailPattern = Pattern.compile(emailRegexPattern); //creates pattern
         Matcher emailMatcher = emailPattern.matcher(email); //returns a Matcher object
         boolean emailMatchFound = emailMatcher.find();
 

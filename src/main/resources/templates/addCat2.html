@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tilføj kat</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:insert="~{parts/navigation:: nav}"></div>
+<form class="container" th:action="@{/myCats/addCat}" th:object="${newCat}" method="post" enctype="multipart/form-data">
+    <label class="inputLabel">Navn:</label>
+    <input type="text" th:field="*{name}" required>
+    <br>
+    <label class="inputLabel">Fødselsdag:</label>
+    <input type="date" th:field="*{birthday}" required>
+    <br>
+    <label>Farve:</label>
+    <select th:field="*{color}">
+        <option value="Blue">Blue</option>
+        <option value="Lilac">Lilac</option>
+        <option value="Red">Red</option>
+        <option value="Cream">Cream</option>
+        <option value="Cinnamon">Cinnamon</option>
+        <option value="Chocolate">Chocolate</option>
+    </select>
+    <br>
+    <label>Køn:</label>
+    <select th:field="*{sex}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+    <br>
+    <label>Fertil:</label>
+    <select th:field="*{fertile}">
+        <option value="true">Ja</option>
+        <option value="false">Nej</option>
+    </select>
+    <br>
+    <label class="inputLabel" for="imageUpload">Billede:</label>
+    <input type="file" id="imageUpload" name="image" accept="image/*">
+    <br>
+
+    <label>
+        <input type="checkbox" name="alive" th:checked="${alive}">Min kat er her ikke længere
+    </label>
+
+    <div class="error" th:text="${error}"></div>
+    <button type="submit">Opret kat</button>
+    <br>
+    <a href="/myCats">Annullér</a>
+</form>
+
+<div th:insert="~{parts/footer:: footer}"></div>
+</body>
+</html>

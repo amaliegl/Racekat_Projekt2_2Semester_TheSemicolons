@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rediger profil</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div th:insert="~{parts/navigation:: nav}"></div>
+<div class="container">
+<form  th:action="@{/myCats/editCat}" method="post" th:object="${cat}" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{birthday}">
+    <input type="hidden" th:field="*{color}">
+    <input type="hidden" th:field="*{sex}">
+    <input type="hidden" th:field="*{imagePath}">
+
+    <div>
+        <label for="name" class="inputLabel">Navn</label>
+        <input type="text" id="name" th:field="*{name}" required>
+    </div>
+
+    <label class="inputLabel">Fertil:</label>
+    <select th:field="*{fertile}">
+        <option value="true">Ja</option>
+        <option value="false">Nej</option>
+    </select>
+    <br>
+
+    <div>
+        <input type="checkbox" name="alive" th:checked="*{alive}">Min kat er her ikke længere
+    </div>
+
+    <div>
+        <label class="inputLabel" for="imageUpload">Billede:</label>
+        <input type="file" id="imageUpload" name="image" accept="image/*">
+    </div>
+<br>
+    <button type="submit">Gem ændringer</button>
+</form>
+<br>
+    <a href="/myCats">Annullér</a>
+<br>
+<form th:action="@{/myCats/editCat/delete/{id}(id=${cat.id})}" method="post">
+    <button type="submit" class ="delete" onclick="return confirmDeleteCat()">Slet</button>
+</form>
+
+</div>
+
+<div th:insert="~{parts/footer:: footer}"></div>
+<script th:src="@{/script.js}"></script>
+</body>
+</html>

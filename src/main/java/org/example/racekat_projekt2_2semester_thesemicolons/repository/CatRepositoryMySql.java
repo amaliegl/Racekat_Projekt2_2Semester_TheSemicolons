@@ -103,6 +103,7 @@ public class CatRepositoryMySql implements ICatRepository {
                 cat.getPedigreePath(),
                 cat.getId()
         );
+        System.out.println(cat);
     }
 
     @Override

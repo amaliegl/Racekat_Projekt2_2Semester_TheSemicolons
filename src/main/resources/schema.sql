@@ -27,3 +27,6 @@ CREATE TABLE users_cats (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (cat_id) REFERENCES cats(cat_id)
 );
+
+ALTER TABLE cats
+    MODIFY COLUMN cat_image_path VARCHAR(255);

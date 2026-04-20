@@ -18,7 +18,9 @@
     </thead>
     <tbody>
     <tr th:each="cat : ${cats}">
-        <td><img th:src="@{/image/{file}(file=${cat.imagePath})}" alt="catPicture" width="120"></td>
+        <td><img th:src="@{/uploads/{file}(file=${cat.imagePath})}" alt="catPicture" width="120"></td>
+        <!-- <td><img th:src="@{/image/uploads/{file}(file=${cat.imagePath})}" alt="catPicture" width="120"></td> -->
+        <!-- <td><img th:src="@{/image/{file}(file=${cat.imagePath})}" alt="catPicture" width="120"></td> -->
         <td>
             <ul>
                 <li><span th:text="|Navn: ${cat.name}|">Navn</span></li>

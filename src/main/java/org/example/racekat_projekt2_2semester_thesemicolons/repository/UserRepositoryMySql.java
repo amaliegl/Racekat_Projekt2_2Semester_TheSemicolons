@@ -158,8 +158,10 @@ public class UserRepositoryMySql implements IUserRepository {
                             rs.getString("user_phone")
                     ), id
             );
-            assignUserTheirCats(user);
-            return user;
+
+            return assignUserTheirCats(user);
+            //assignUserTheirCats(user);
+            //return user;
     }
 
     @Override
